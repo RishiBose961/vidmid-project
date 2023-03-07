@@ -87,6 +87,9 @@ const userController = {
             if (!isMatch)
                 return res.status(400).json({ message: "This password is incrrect." })
 
+            if (user.verified === false)
+                return res.status(400).json({ message: "Please Verify Your Email" })
+
             //refresh token
             const rf_token = createToken.refresh({ id: user._id })
             res.cookie("_apprftoken", rf_token, {
