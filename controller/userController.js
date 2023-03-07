@@ -164,6 +164,49 @@ const userController = {
             })
     },
 
+    
+
+    //get user post by id
+    postbyid: async (req, res) => {
+        Post.find({ postedBy: req.user.id })
+            .populate("postedBy", "_id username")
+            .then(mypost => {
+                res.json({ mypost })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    },
+    //like a post of user
+    likeposts: async (req, res) => {
+        Post.findByIdAndUpdate(req.body.postId, {
+            $push: { likes: req.user.id }
+        }, {
+            new: true
+        }).populate("postedBy", "username avatar").exec((err, result) => {
+            if (err) {
+                return res.status(422).json({ error: err })
+            }
+            else {
+                res.json(result)
+            }
+        })
+    },
+    //dislike a post of user
+    dislikeposts: async (req, res) => {
+        Post.findByIdAndUpdate(req.body.postId, {
+            $pull: { likes: req.user.id }
+        }, {
+            new: true
+        }).populate("postedBy", "username avatar").exec((err, result) => {
+            if (err) {
+                return res.status(422).json({ error: err })
+            }
+            else {
+                res.json(result)
+            }
+        })
+    },
     google: async (req, res) => {
         try {
             const { tokenId } = req.body;
@@ -224,48 +267,6 @@ const userController = {
         } catch (error) {
             res.status(500).json({ msg: error.message });
         }
-    },
-
-    //get user post by id
-    postbyid: async (req, res) => {
-        Post.find({ postedBy: req.user.id })
-            .populate("postedBy", "_id username")
-            .then(mypost => {
-                res.json({ mypost })
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    },
-    //like a post of user
-    likeposts: async (req, res) => {
-        Post.findByIdAndUpdate(req.body.postId, {
-            $push: { likes: req.user.id }
-        }, {
-            new: true
-        }).populate("postedBy", "username avatar").exec((err, result) => {
-            if (err) {
-                return res.status(422).json({ error: err })
-            }
-            else {
-                res.json(result)
-            }
-        })
-    },
-    //dislike a post of user
-    dislikeposts: async (req, res) => {
-        Post.findByIdAndUpdate(req.body.postId, {
-            $pull: { likes: req.user.id }
-        }, {
-            new: true
-        }).populate("postedBy", "username avatar").exec((err, result) => {
-            if (err) {
-                return res.status(422).json({ error: err })
-            }
-            else {
-                res.json(result)
-            }
-        })
     },
 
     signout: async (req, res) => {

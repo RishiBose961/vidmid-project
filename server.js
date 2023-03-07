@@ -33,20 +33,14 @@ app.use(userRoutes)
 
 
 
+app.use(express.static(path.join(__dirname,"./client/build")))
 
-// if(process.env.NODE_ENV === 'production') {
-//     app.use(express.static("client/build"));
-// }
-
-
-// app.use(express.static(path.join(__dirname,"./client/build")))
-
-// app.get("*",(req,res)=>{
-//     res.sendFile(path.join(__dirname,"./client/build/index.html"),
-//     function (err) {
-//         res.status(500).send(err)
-//     })
-// })
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"./client/build/index.html"),
+    function (err) {
+        res.status(500).send(err)
+    })
+})
 
 const port = process.env.PORT || 8000;
 
