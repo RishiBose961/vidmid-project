@@ -17,6 +17,14 @@ route.get('/api/auth/getallpost',userController.getallposts);
 route.get('/api/auth/getpostid',auth,userController.postbyid);
 route.put('/api/auth/like',auth,userController.likeposts);
 route.put('/api/auth/dislike',auth,userController.dislikeposts);
+
+//get single or search a user
+route.get('/api/auth/getsingleuser/:id',userController.getuserid);
+
+//SEARCH FEATURE
+route.post('/api/auth/searchuser',userController.allSearchUser)
+
+//login & signgout
 route.post('/api/auth/google_signing',userController.google);
 route.get('/api/auth/signout', userController.signout);
 

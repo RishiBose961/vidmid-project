@@ -164,7 +164,7 @@ const userController = {
             })
     },
 
-    
+
 
     //get user post by id
     postbyid: async (req, res) => {
@@ -207,6 +207,40 @@ const userController = {
             }
         })
     },
+    //to see other user profile or info
+    getuserid: (req, res) => {
+        User.findOne({ _id: req.params.id })
+            .select("-password")
+            .then(user => {
+                Post.find({ postedBy: req.params.id })
+                    .populate("postedBy", "_id name")
+                    .exec((err, posts) => {
+                        if (err) {
+                            return res.status(422).json({ error: err })
+                        }
+                        res.json({ user, posts })
+                    })
+            }).catch(err => {
+                return res.status(404).json({ error: "User not found", err })
+            })
+    },
+    //To search Specific User through email username
+    allSearchUser: async (req, res) => {
+        let userPattern = new RegExp("^" + req.body.query)
+        User.find({
+            $or: [
+                { username: { $regex: userPattern } },
+                { email: { $regex: userPattern } },
+            ],
+        })
+            .select("_id email username avatar")
+            .then(user => {
+                res.json({ user })
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+
     google: async (req, res) => {
         try {
             const { tokenId } = req.body;
