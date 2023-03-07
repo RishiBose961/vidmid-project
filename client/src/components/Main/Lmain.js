@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { HomeIcon, UserIcon, PencilIcon, UsersIcon,MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 
 
 const Lmain = () => {
+    const {isLoggedIn} = useContext(AuthContext)
     return (
         <div className='mx-3 mt-3'>
             <p className='mt-2 mb-2 font-bold text-lg'>For You..</p>
@@ -15,20 +17,26 @@ const Lmain = () => {
                 <UserIcon className="h-10 w-10 text-purple-500" /><p className='mx-2 mt-1.5 text-lg'>Profile</p>
             </div>
             </Link>
-           
-            <Link to='/createpost'>
+           {
+            isLoggedIn ? <Link to='/createpost'>
                 <div className='inline-flex ring-2 ring-red-500 w-full active:bg-red-200 justify-center rounded-xl cursor-pointer mb-3'>
                     <PencilIcon className="h-9 w-9 text-red-500" /><p className='mx-2 mt-1.5 text-lg'>Create Post</p>
                 </div>
-            </Link>
+            </Link>:""
+           }
+            
             <Link to='/findfriends'>
             <div className='inline-flex ring-2 ring-amber-500 w-full active:bg-pink-200 justify-center rounded-xl cursor-pointer mb-3'>
                 <MagnifyingGlassIcon className="h-9 w-9 text-amber-500" /><p className='mx-2 mt-1.5 text-lg'>Search</p>
             </div>
             </Link>
+            {
+            isLoggedIn ?
             <div className='inline-flex ring-2 ring-pink-500 w-full active:bg-pink-200 justify-center rounded-xl cursor-pointer mb-3'>
                 <UsersIcon className="h-9 w-9 text-pink-500" /><p className='mx-2 mt-1.5 text-lg'>Followings</p>
             </div>
+            :""}
+            
 
         </div>
     )

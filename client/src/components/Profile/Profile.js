@@ -1,9 +1,22 @@
+import axios from 'axios';
 import React, { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import YourPost from './YourPost';
 
 const Profile = ({ options, theme, setTheme }) => {
-    const { user } = useContext(AuthContext)
+    const { user,dispatch } = useContext(AuthContext)
+
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+        await axios.get("/api/auth/signout")
+        localStorage.removeItem("_appSignging")
+        dispatch({ type: "SIGNOUT" })
+    } catch (error) {
+        console.log(error);
+    }
+}
 
     return (
         <>
@@ -45,7 +58,10 @@ const Profile = ({ options, theme, setTheme }) => {
 
                         </div>
                         <div className='mt-9 mx-2'>
-                            <button className='bg-rose-500 w-32 h-10 rounded-full'>Update</button>
+                            <button className='bg-gradient-to-r from-cyan-500 to-blue-500 w-32 h-10 rounded-full'>Update</button>
+                        </div>
+                        <div className='mt-9 mx-2'>
+                            <button className='bg-rose-500 w-32 h-10 rounded-full' onClick={handleClick}>Logout</button>
                         </div>
                     </div>
 
