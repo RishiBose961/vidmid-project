@@ -5,6 +5,8 @@ const userController = require('./controller/userController');
 const userRoutes = require('./routes/userRoutes');
 const app = express();
 const path = require('path');
+
+
 require("dotenv").config();
 
 mongoose.set('strictQuery', true);
@@ -41,6 +43,8 @@ app.get("*",(req,res)=>{
         res.status(500).send(err)
     })
 })
+
+
 
 const port = process.env.PORT || 8000;
 
