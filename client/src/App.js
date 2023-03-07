@@ -10,6 +10,8 @@ import AuthLayout from './layout/AuthLayout';
 import Profile from './components/Profile/Profile';
 import Search from './components/Search/Search';
 import Lhome from './components/LoadingScreens/Lhome';
+import SearchResult from './components/Search/SearchResult';
+import SearchProfile from './components/SearchProfile/SearchProfile';
 
 function App() {
   const { dispatch, token, isLoggedIn } = useContext(AuthContext)
@@ -117,6 +119,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/createpost' element={isLoggedIn ? <Post /> : <AuthLayout />} />
             <Route path='/profile' element={isLoggedIn ? <Profile options={options} theme={theme} setTheme={setTheme} /> : <AuthLayout />} />
+            <Route path='/:id' element={<SearchProfile />} />
             <Route path='/findfriends' element={<Search />} />
           </Routes>
         </div>
