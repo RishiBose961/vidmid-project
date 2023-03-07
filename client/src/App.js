@@ -99,20 +99,8 @@ function App() {
 
   return (
     <div className="min-h-screen pt-1 dark:text-gray-100 dark:bg-slate-900 duration-100">
-      {/* {loading ? <BrowserRouter>
-        <Header />
-        <div className='container mx-auto'>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/createpost' element={isLoggedIn ? <Post /> : <AuthLayout />} />
-            <Route path='/profile' element={isLoggedIn ? <Profile options={options} theme={theme} setTheme={setTheme} /> : <AuthLayout />} />
-            <Route path='/findfriends' element={<Search />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-        : <Lhome/>} */}
-
-        <BrowserRouter>
+    
+        {loading ? <BrowserRouter>
         <Header />
         <div className='container mx-auto'>
           <Routes>
@@ -123,7 +111,8 @@ function App() {
             <Route path='/findfriends' element={<Search />} />
           </Routes>
         </div>
-      </BrowserRouter>
+      </BrowserRouter>: <Lhome/>} 
+
 
     </div>
   );
