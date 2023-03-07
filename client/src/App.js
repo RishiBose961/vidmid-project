@@ -93,9 +93,9 @@ function App() {
   }, [dispatch, token])
 
 
-  // setTimeout(() => {
-  //   setLoading(true);
-  // }, 1000);
+  setTimeout(() => {
+    setLoading(true);
+  }, 1000);
 
   return (
     <div className="min-h-screen pt-1 dark:text-gray-100 dark:bg-slate-900 duration-100">
