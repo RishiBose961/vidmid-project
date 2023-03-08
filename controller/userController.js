@@ -243,6 +243,95 @@ const userController = {
                 console.log(err)
             })
     },
+    //follow specific user
+    followuser: async (req, res) => {
+        User.findByIdAndUpdate(req.body.followId, {
+            $push: { followers: req.user.id }
+        }, { new: true }, (err, result) => {
+            if (err) {
+                return res.status(422).json({ error: err })
+            }
+            User.findByIdAndUpdate(req.user.id, {
+                $push: { following: req.body.followId }
+            }, { new: true }).select("-password")
+                .exec((err, result, user1) => {
+                    if (err) {
+                        return res.status(422).json({ error: err })
+                    }
+                    else {
+                        res.json(result)
+                    }
+                })
+        })
+    },
+    //unfollow specific user
+    unfollowuser: (req, res) => {
+        User.findByIdAndUpdate(req.body.unfollowId, {
+            $pull: { followers: req.user.id }
+        }, { new: true }, (err, results) => {
+            if (err) {
+                return res.status(422).json({ error: err })
+            }
+            User.findByIdAndUpdate(req.user.id, {
+                $pull: { following: req.body.unfollowId }
+            }, { new: true }).select("-password")
+                .then(results => {
+                    res.status(200).json(results)
+                }).catch(err => {
+                    return res.status(422).json({ error: err })
+                })
+        })
+    },
+
+    //update user profile
+
+    updatepic: async (req, res) => {
+        User.findByIdAndUpdate(req.user.id, {
+            $set: { avatar: req.body.avatar }
+        }, { new: true }, (err, result) => {
+            if (err) {
+                return res.status(422).json({ err: "Pic Cannot Avatar" })
+            }
+            res.json(result)
+        })
+    },
+
+    FriendFollowing: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.userId);
+            const friends = await Promise.all(
+                user.following.map((friendId) => {
+                    return User.findById(friendId);
+                })
+            );
+            let friendList = [];
+            friends.map((friend) => {
+                const { _id, username, avatar, email } = friend;
+                friendList.push({ _id, username, avatar, email });
+            });
+            res.status(200).json(friendList)
+        } catch (err) {
+            res.status(500).json(err)
+        }
+    },
+    FriendFollowers: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.userId);
+            const friends = await Promise.all(
+                user.followers.map((friendId) => {
+                    return User.findById(friendId);
+                })
+            );
+            let friendLists = [];
+            friends.map((friend) => {
+                const { _id, username, avatar, email } = friend;
+                friendLists.push({ _id, username, avatar, email });
+            });
+            res.status(200).json(friendLists)
+        } catch (err) {
+            res.status(500).json(err)
+        }
+    },
 
     google: async (req, res) => {
         try {
@@ -284,7 +373,6 @@ const userController = {
                 const newUser = new User({
                     username: name,
                     email,
-                    companyname: given_name,
                     password: hashPassword
                 });
                 await newUser.save();

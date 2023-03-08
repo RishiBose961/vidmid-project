@@ -4,13 +4,63 @@ import { AuthContext } from '../../context/AuthContext';
 
 
 const SearchProfile = () => {
-    const { token, user, dispatch,isLoggedIn } = useContext(AuthContext)
+    const { token, user, dispatch, isLoggedIn } = useContext(AuthContext)
     const [userProfile, setProfile] = useState(null)
 
     const { id } = useParams("");
     const [isFollow, setIsFollow] = useState(false);
     const [inpval, setinpval] = useState([])
     const [posts, setposts] = useState([])
+
+    const followUser = () => {
+        fetch("/api/auth/follow", {
+            method: 'put',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({
+                followId: id,
+            })
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                // console.log(data);
+                dispatch({
+                    type: "UPDATE", payload: {
+                        following: data.following,
+                        followers: data.followers
+                    }
+                });
+                localStorage.setItem("user", JSON.stringify(data))
+                setProfile((prevState) => {
+                    return {
+                        ...prevState,
+                        user: data
+                    }
+                })
+                setIsFollow(true);
+            });
+    };
+
+
+    const unfollowUser = () => {
+        fetch("/api/auth/unfollow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({
+                unfollowId: id
+            })
+        }).then((res) => res.json())
+            .then((data) => {
+                // console.log(data);
+                setIsFollow(false);
+            });
+    }
+
 
 
     useEffect(() => {
@@ -34,6 +84,7 @@ const SearchProfile = () => {
             })
     }, [isFollow])
 
+    
     return (
         <div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
@@ -55,24 +106,38 @@ const SearchProfile = () => {
                         </p>
                     </div>
                     <div className='flex space-x-3 mt-8'>
-                        <p className='text-lg'>Follower</p>
-                        <p className='text-lg'>Following</p>
+                        <p className='text-lg'><span>{inpval.followers?.length} 🔸 </span>Follower</p>
+                        <p className='text-lg'><span>| {inpval.following?.length} 🔸 </span>Following</p>
                     </div>
                     {
-                        isLoggedIn? <div className='inline-flex'>
-                        <div className='mt-9 mx-2'>
-                            <button className='bg-violet-500 w-32 h-10 font-semibold rounded-full'>Follow</button>
-                        </div>
-                    </div>:""
+                        isLoggedIn ? <div className='inline-flex'>
+                            <div className='mt-9 mx-2'>
+                                <button className='bg-violet-500 w-32 h-10 font-semibold rounded-full'
+                                    onClick={() => {
+                                        if (isFollow) {
+                                            unfollowUser(user._id);
+                                        } else {
+                                            followUser(user._id);
+                                        }
+                                    }}>
+                                    {isFollow ? <div className='rounded-3xl'>
+                                        <p>Following</p>
+                                    </div>
+                                        : <div className=' rounded-3xl '>
+                                            <p className='font-bold'>Follow</p>
+                                        </div>}
+                                </button>
+                            </div>
+                        </div> : ""
                     }
-                   
+
 
 
                 </div>
             </div>
             <div className='mx-4'>
                 <p className='text-lg font-semibold'>Posts</p>
-                <hr/>
+                <hr />
             </div>
             <div className='grid grid-cols-2 lg:grid-cols-6 gap-3 pb-6 ml-6 mx-2 mt-4'>
                 {

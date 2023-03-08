@@ -16,6 +16,9 @@ const Lhome = () => {
           wrapperClass="dna-wrapper"
         />
         </div>
+        <div className='mt-48'>
+          <p>Own By <sub className='text-lg font-bold'>Think</sub></p>
+        </div>
         
       </div>
     </div>

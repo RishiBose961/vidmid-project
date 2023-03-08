@@ -32,9 +32,11 @@ const Lmain = () => {
             </Link>
             {
             isLoggedIn ?
+            <Link to='/following'>
             <div className='inline-flex ring-2 ring-pink-500 w-full active:bg-pink-200 justify-center rounded-xl cursor-pointer mb-3'>
                 <UsersIcon className="h-9 w-9 text-pink-500" /><p className='mx-2 mt-1.5 text-lg'>Followings</p>
             </div>
+            </Link>
             :""}
             
 

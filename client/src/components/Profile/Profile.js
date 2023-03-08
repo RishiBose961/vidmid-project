@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext'
 import YourPost from './YourPost';
 
@@ -39,8 +40,8 @@ const Profile = ({ options, theme, setTheme }) => {
                         </p>
                     </div>
                     <div className='flex space-x-3 mt-8'>
-                        <p className='text-lg'>Follower</p>
-                        <p className='text-lg'>Following</p>
+                        <p className='text-lg'>{user.followers?.length} 🔸Follower</p>
+                        <p className='text-lg'>| {user.following?.length} 🔸Following</p>
                     </div>
                     <div className='inline-flex'>
                         <div className="duration-100 w-fit dark:bg-slate-800 bg-gray-100 rounded-lg mt-8">
@@ -57,9 +58,11 @@ const Profile = ({ options, theme, setTheme }) => {
                             }
 
                         </div>
+                        <Link to='/updateprofile'>
                         <div className='mt-9 mx-2'>
-                            <button className='bg-gradient-to-r from-cyan-500 to-blue-500 w-32 h-10 rounded-full'>Update</button>
+                            <button className='bg-gradient-to-r from-cyan-500 to-blue-500 w-32 h-10 rounded-full'>Edit</button>
                         </div>
+                        </Link>      
                         <div className='mt-9 mx-2'>
                             <button className='bg-rose-500 w-32 h-10 rounded-full' onClick={handleClick}>Logout</button>
                         </div>

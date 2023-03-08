@@ -24,6 +24,17 @@ route.get('/api/auth/getsingleuser/:id',userController.getuserid);
 //SEARCH FEATURE
 route.post('/api/auth/searchuser',userController.allSearchUser)
 
+//update user name and avatar
+route.put('/api/auth/user_avatar',auth,userController.updatepic);
+
+//follow and unfollow a user route
+route.put('/api/auth/follow',auth,userController.followuser)
+route.put('/api/auth/unfollow',auth,userController.unfollowuser)
+
+//followers and followings a user route show
+route.get('/api/auth/friendfollowing/:userId',auth,userController.FriendFollowing)
+route.get('/api/auth/friendfollowers/:userId',auth,userController.FriendFollowers)
+
 //login & signgout
 route.post('/api/auth/google_signing',userController.google);
 route.get('/api/auth/signout', userController.signout);
