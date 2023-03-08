@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-import { PlayIcon, PauseIcon, HeartIcon, ShareIcon, ChatBubbleBottomCenterIcon } from '@heroicons/react/24/solid'
+import { HeartIcon, ShareIcon } from '@heroicons/react/24/solid'
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import { AuthContext } from '../../context/AuthContext';
 import LScreen from '../LoadingScreens/LScreen';
 import { Comment } from 'react-loader-spinner'
-
+import { format } from 'timeago.js'
 
 
 const Rmain = () => {
@@ -127,7 +127,9 @@ const Rmain = () => {
 
                                     </div>
                                     <div className='mt-3 mx-2'>
-                                        <button className='ring-2 ring-rose-500 w-32 text-rose-500 rounded-xl'>Follow</button>
+                                   
+                                    <button className='ring-2 ring-rose-500 dark:ring-lime-500 w-32 text-rose-500 dark:text-lime-500 rounded-xl'>{format(post.createdAt)}</button>
+                                        
                                     </div>
                                 </div>
                                 <div className='flex justify-center mt-2'>
@@ -144,7 +146,7 @@ const Rmain = () => {
                                         {formatter.format(post.likes.length)}
                                     </div>
                                 </div>
-
+                                <Link to='/comments'>
                                 <div className='group-hover:flex flex-col max-h-[94.5%] hidden active:bg-slate-300 duration-150 cursor-pointer absolute bottom-[328px] right-[10px]  lg:right-[282px] bg-black text-white m-2 p-4 rounded-full'>
                                     <div>
                                         <Comment
@@ -160,6 +162,8 @@ const Rmain = () => {
                                         {/* <ChatBubbleBottomCenterIcon className='h-6 w-6 text-purple-500' /> */}
                                     </div>
                                 </div>
+                                </Link>
+                                
 
 
 
