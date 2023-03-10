@@ -5,19 +5,21 @@ import { AuthContext } from '../../context/AuthContext'
 import YourPost from './YourPost';
 
 const Profile = ({ options, theme, setTheme }) => {
-    const { user,dispatch } = useContext(AuthContext)
+    const { user, dispatch } = useContext(AuthContext)
+    
 
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-        await axios.get("/api/auth/signout")
-        localStorage.removeItem("_appSignging")
-        dispatch({ type: "SIGNOUT" })
-    } catch (error) {
-        console.log(error);
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.get("/api/auth/signout")
+            localStorage.removeItem("_appSignging")
+            dispatch({ type: "SIGNOUT" })
+        } catch (error) {
+            console.log(error);
+        }
     }
-}
 
     return (
         <>
@@ -59,10 +61,10 @@ const Profile = ({ options, theme, setTheme }) => {
 
                         </div>
                         <Link to='/updateprofile'>
-                        <div className='mt-9 mx-2'>
-                            <button className='bg-gradient-to-r from-cyan-500 to-blue-500 w-32 h-10 rounded-full'>Edit</button>
-                        </div>
-                        </Link>      
+                            <div className='mt-9 mx-2'>
+                                <button className='bg-gradient-to-r from-cyan-500 to-blue-500 w-32 h-10 rounded-full'>Edit</button>
+                            </div>
+                        </Link>
                         <div className='mt-9 mx-2'>
                             <button className='bg-rose-500 w-32 h-10 rounded-full' onClick={handleClick}>Logout</button>
                         </div>

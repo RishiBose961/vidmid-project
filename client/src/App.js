@@ -5,16 +5,16 @@ import { AuthContext } from './context/AuthContext';
 import axios from 'axios';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from './components/Home/Home';
-import Post from './components/Post/Post';
 import AuthLayout from './layout/AuthLayout';
 import Profile from './components/Profile/Profile';
 import Search from './components/Search/Search';
 import Lhome from './components/LoadingScreens/Lhome';
-import SearchResult from './components/Search/SearchResult';
 import SearchProfile from './components/SearchProfile/SearchProfile';
 import Comment from './components/comments/Comment';
 import UpdateProfile from './components/Profile/UpdateProfile';
 import Following from './components/Followings/Following';
+import ClipsPost from './components/Post/ClipsPost';
+import CreatePost from './components/Post/CreatePost';
 
 function App() {
   const { dispatch, token, isLoggedIn } = useContext(AuthContext)
@@ -108,7 +108,8 @@ function App() {
         <div className='container mx-auto'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/createpost' element={isLoggedIn ? <Post /> : <AuthLayout />} />
+            <Route path='/createpost' element={isLoggedIn ? <ClipsPost /> : <AuthLayout />} />
+            <Route path='/createimage' element={isLoggedIn ?<CreatePost />:<AuthLayout/>} />
             <Route path='/profile' element={isLoggedIn ? <Profile options={options} theme={theme} setTheme={setTheme} /> : <AuthLayout />} />
             <Route path='/:id' element={<SearchProfile />} />
             <Route path='/findfriends' element={<Search />} />

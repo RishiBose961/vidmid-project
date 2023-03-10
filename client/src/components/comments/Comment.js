@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import EmojiPicker from 'emoji-picker-react';
+
 import { TrashIcon } from '@heroicons/react/24/solid'
 
 const Comment = () => {
