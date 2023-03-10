@@ -64,15 +64,17 @@ const Following = () => {
                                 {
                                     friends.map((following) => {
                                         return (
-                                            <div className='inline-flex mt-2 ring-1 w-fit rounded-2xl ring-lime-400 dark:ring-white'>
+                                            <div className='grid grid-cols-1'>
 
-                                                <img src={following.avatar}
-                                                    alt="placeholder" className='h-14 w-14 rounded-full bg-amber-500' />
-                                                <div className='mx-2'>
-                                                    <p className='font-bold text-lg'>{following.username}</p>
-                                                    <p>{following.email}</p>
+                                                <div className='inline-flex mt-2 ring-1 w-fit rounded-2xl ring-lime-400 dark:ring-white'>
+                                                    <img src={following.avatar}
+                                                        alt="placeholder" className='h-14 w-14 rounded-full bg-amber-500' />
+                                                    <div className='mx-2'>
+                                                        <p className='font-bold text-lg'>{following.username}</p>
+                                                        <p>{following.email}</p>
+                                                    </div>
+
                                                 </div>
-
                                             </div>
                                         )
                                     })
@@ -82,22 +84,26 @@ const Following = () => {
                         <div>
                             <p className='text-center uppercase font-semibold text-xl'>followers</p>
                             <div className='text-center mt-5' >
+
                                 {
                                     friendsFollower.map((follower) => {
                                         return (
-                                            <div className='inline-flex mt-2 ring-1 w-fit rounded-2xl ring-lime-400 dark:ring-white'>
-
-                                                <img src={follower.avatar}
-                                                    alt="placeholder" className='h-14 w-14 rounded-full bg-amber-500' />
-                                                <div className='mx-2'>
-                                                    <p className='font-bold text-lg'>{follower.username}</p>
-                                                    <p>{follower.email}</p>
+                                            <>
+                                            <div className='grid grid-cols-1'>
+                                                <div className='inline-flex mt-2 ring-1 w-fit rounded-2xl ring-lime-400 dark:ring-white'>
+                                                    <img src={follower.avatar}
+                                                        alt="placeholder" className='h-14 w-14 rounded-full bg-amber-500' />
+                                                    <div className='mx-2'>
+                                                        <p className='font-bold text-lg'>{follower.username}</p>
+                                                        <p>{follower.email}</p>
+                                                    </div>
+                                                    </div>
                                                 </div>
-
-                                            </div>
+                                            </>
                                         )
                                     })
                                 }
+
                             </div>
                         </div>
                     </div>
@@ -114,7 +120,7 @@ const Following = () => {
                         />
 
                     </div>
-                    </div>
+                </div>
             }
 
         </div>

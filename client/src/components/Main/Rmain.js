@@ -135,7 +135,7 @@ const Rmain = () => {
                                 <div className='flex justify-center mt-2'>
 
 
-                                    <video controls loop className='lg:h-[816px] lg:w-[459px]  h-[696px] rounded-lg mb-4 bg-slate-300'>
+                                    <video controls className='lg:h-[816px] lg:w-[459px]  h-[696px] rounded-lg mb-4 bg-slate-300'>
                                         <source src={post.videos} className='' />
                                     </video>
 

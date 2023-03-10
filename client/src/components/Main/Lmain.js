@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { HomeIcon, UserIcon, PencilIcon, UsersIcon,MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import { HomeIcon, UserIcon, PencilIcon, UsersIcon,MagnifyingGlassIcon,VideoCameraIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 
@@ -18,11 +18,20 @@ const Lmain = () => {
             </div>
             </Link>
            {
-            isLoggedIn ? <Link to='/createpost'>
-                <div className='inline-flex ring-2 ring-red-500 w-full active:bg-red-200 justify-center rounded-xl cursor-pointer mb-3'>
-                    <PencilIcon className="h-9 w-9 text-red-500" /><p className='mx-2 mt-1.5 text-lg'>Create Post</p>
+            isLoggedIn ?
+            <div className='flex lg:justify-between justify-around space-x-2'>
+            <Link to='/createpost'>
+                <div className='inline-flex ring-2 ring-red-500 w-48 active:bg-red-200 justify-center rounded-xl cursor-pointer mb-3'>
+                    <VideoCameraIcon className="h-9 w-9 text-red-500" /><p className='mx-2 mt-1 text-lg'>Create Clips</p>
                 </div>
-            </Link>:""
+            </Link>
+            <Link to='/createimage'>
+                <div className='inline-flex ring-2 ring-red-500 w-48 active:bg-red-200 justify-center rounded-xl cursor-pointer mb-3'>
+                    <PencilIcon className="h-9 w-9 text-red-500" /><p className='mx-2 mt-1 text-lg'>Create Post</p>
+                </div>
+            </Link> 
+            </div>
+             :""
            }
             
             <Link to='/findfriends'>

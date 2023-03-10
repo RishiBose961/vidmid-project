@@ -11,6 +11,7 @@ const Verify = require('../models/verificationToken')
 const { google } = require("googleapis");
 const { OAuth2 } = google.auth
 const sendMail = require('../helpers/sendMail');
+const ImagePost = require('../models/imagePostModel')
 
 const userController = {
     registerUser: async (req, res) => {
@@ -331,6 +332,40 @@ const userController = {
         } catch (err) {
             res.status(500).json(err)
         }
+    },
+
+    createImagePost: async (req, res) => {
+        try {
+            const { title, category, images } = req.body
+            if (!title || !category || !images) {
+                return res.status(402).json({ error: "Plz add all the fields" })
+            }
+
+            const post = new ImagePost({
+                title,
+                category,
+                images,
+                otp_expiry: new Date(Date.now() + process.env.OTP_EXPIRE*60 * 60 * 1000),
+                postedBy: req.user.id
+            })
+            post.save().then(posts => {
+                res.json({ post: posts })
+            }).catch(error => console.log(error))
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
+    },
+
+    getallimageposts: async (req, res) => {
+        ImagePost.find()
+            .populate("postedBy", "username avatar followers following")
+            .sort({ createdAt: -1 })
+            .then(imagepost => {
+                res.json({ imagepost })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     },
 
     google: async (req, res) => {

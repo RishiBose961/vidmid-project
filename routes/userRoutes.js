@@ -18,6 +18,10 @@ route.get('/api/auth/getpostid',auth,userController.postbyid);
 route.put('/api/auth/like',auth,userController.likeposts);
 route.put('/api/auth/dislike',auth,userController.dislikeposts);
 
+//create imagepost request
+route.post('/api/auth/createimagepost',auth,userController.createImagePost);
+route.get('/api/auth/getallimagepost',userController.getallimageposts);
+
 //get single or search a user
 route.get('/api/auth/getsingleuser/:id',userController.getuserid);
 

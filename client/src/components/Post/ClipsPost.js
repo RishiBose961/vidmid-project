@@ -5,7 +5,7 @@ import { TrashIcon } from '@heroicons/react/24/solid'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const Post = () => {
+const ClipsPost = () => {
     const history = useNavigate()
     const { token } = useContext(AuthContext)
     const [selects, setSelect] = useState([])
@@ -221,4 +221,4 @@ const Post = () => {
     )
 }
 
-export default Post
+export default ClipsPost
