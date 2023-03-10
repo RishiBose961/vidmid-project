@@ -31,6 +31,10 @@ route.post('/api/auth/searchuser',userController.allSearchUser)
 //update user name and avatar
 route.put('/api/auth/user_avatar',auth,userController.updatepic);
 
+//user comment
+route.put('/api/service/getcomments',auth,userController.commentuser);
+route.get('/api/auth/getallcomment',userController.getallComments);
+
 //follow and unfollow a user route
 route.put('/api/auth/follow',auth,userController.followuser)
 route.put('/api/auth/unfollow',auth,userController.unfollowuser)
