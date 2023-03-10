@@ -10,11 +10,11 @@ import Profile from './components/Profile/Profile';
 import Search from './components/Search/Search';
 import Lhome from './components/LoadingScreens/Lhome';
 import SearchProfile from './components/SearchProfile/SearchProfile';
-import Comment from './components/comments/Comment';
 import UpdateProfile from './components/Profile/UpdateProfile';
 import Following from './components/Followings/Following';
 import ClipsPost from './components/Post/ClipsPost';
 import CreatePost from './components/Post/CreatePost';
+
 
 function App() {
   const { dispatch, token, isLoggedIn } = useContext(AuthContext)
@@ -113,7 +113,6 @@ function App() {
             <Route path='/profile' element={isLoggedIn ? <Profile options={options} theme={theme} setTheme={setTheme} /> : <AuthLayout />} />
             <Route path='/:id' element={<SearchProfile />} />
             <Route path='/findfriends' element={<Search />} />
-            <Route path='/comments' element={<Comment />} />
             <Route path='/updateprofile' element={isLoggedIn ?<UpdateProfile />:<AuthLayout/>} />
             <Route path='/following' element={isLoggedIn ?<Following />:<AuthLayout/>} />
           </Routes>

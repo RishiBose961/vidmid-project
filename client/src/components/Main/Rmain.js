@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 import LScreen from '../LoadingScreens/LScreen';
 import { Comment } from 'react-loader-spinner'
 import { format } from 'timeago.js'
+import Comments from '../comments/Comments';
 
 
 const Rmain = () => {
@@ -107,6 +108,8 @@ const Rmain = () => {
     })
 
 
+
+
     return (
         <>{
             loading ? <Scrollbars style={{ width: 'auto', height: 900 }} >
@@ -141,28 +144,19 @@ const Rmain = () => {
 
                                 </div>
                                 <div className='group-hover:flex flex-col max-h-[94.5%] active:bg-slate-300 duration-150 cursor-pointer
-                hidden absolute bottom-[136px] right-[282px] text-white m-2 p-4 rounded-full'>
+                hidden absolute bottom-[136px] right-[22px] lg:right-[282px] text-white m-2 p-4 rounded-full'>
                                     <div >
                                         {formatter.format(post.likes.length)}
                                     </div>
                                 </div>
-                                <Link to='/comments'>
+                                {/* <Link to='/comments'> */}
                                 <div className='group-hover:flex flex-col max-h-[94.5%] hidden active:bg-slate-300 duration-150 cursor-pointer absolute bottom-[328px] right-[10px]  lg:right-[282px] bg-black text-white m-2 p-4 rounded-full'>
                                     <div>
-                                        <Comment
-                                            visible={true}
-                                            height="28"
-                                            width="28"
-                                            ariaLabel="comment-loading"
-                                            wrapperStyle={{}}
-                                            wrapperClass="comment-wrapper"
-                                            color="#fff"
-                                            backgroundColor="#845EC2"
-                                        />
-                                        {/* <ChatBubbleBottomCenterIcon className='h-6 w-6 text-purple-500' /> */}
+                                    <Comments post={post} data={data} setData={setData}/>
+                                
                                     </div>
                                 </div>
-                                </Link>
+                                {/* </Link> */}
                                 
 
 

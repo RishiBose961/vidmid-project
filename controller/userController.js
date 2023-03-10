@@ -159,6 +159,7 @@ const userController = {
     getallposts: async (req, res) => {
         Post.find()
             .populate("postedBy", "username avatar followers following")
+            .populate("comments.postedBy","id username avatar")
             .sort({ createdAt: -1 })
             .then(posts => {
                 res.json({ posts })
@@ -345,7 +346,7 @@ const userController = {
                 title,
                 category,
                 images,
-                otp_expiry: new Date(Date.now() + process.env.OTP_EXPIRE*60 * 60 * 1000),
+                otp_expiry: new Date(Date.now() + process.env.OTP_EXPIRE * 60 * 60 * 1000),
                 postedBy: req.user.id
             })
             post.save().then(posts => {
@@ -362,6 +363,40 @@ const userController = {
             .sort({ createdAt: -1 })
             .then(imagepost => {
                 res.json({ imagepost })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    },
+    commentuser: async (req, res) => {
+        const comment = {
+            text: req.body.text,
+            postedBy: req.user.id
+        }
+        Post.findByIdAndUpdate(req.body.postId, {
+            $push: { comments: comment }
+        }, {
+            new: true
+        }).sort({ createdAt: -1 })
+            .populate("comments.postedBy", "id uername avatar")
+            .populate("postedBy", "username avatar followers following")
+            .exec((err, result) => {
+                if (err) {
+                    return res.status(422).json({ error: err })
+                }
+                else {
+                    res.json(result)
+                }
+            })
+    },
+
+    getallComments: async (req, res) => {
+        Post.find()
+        .populate("postedBy", "username avatar followers following")
+            .populate("comments.postedBy","id username avatar")
+            .sort({ createdAt: -1 })
+            .then(userpost => {
+                res.json({ userpost })
             })
             .catch(err => {
                 console.log(err);
