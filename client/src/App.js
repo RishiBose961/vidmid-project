@@ -14,6 +14,7 @@ import UpdateProfile from './components/Profile/UpdateProfile';
 import Following from './components/Followings/Following';
 import ClipsPost from './components/Post/ClipsPost';
 import CreatePost from './components/Post/CreatePost';
+import IndividaulPost from './components/IndividaulPost/IndividaulPost';
 
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
             <Route path='/createimage' element={isLoggedIn ?<CreatePost />:<AuthLayout/>} />
             <Route path='/profile' element={isLoggedIn ? <Profile options={options} theme={theme} setTheme={setTheme} /> : <AuthLayout />} />
             <Route path='/:id' element={<SearchProfile />} />
+            <Route path='post/:id' element={<IndividaulPost />} />
             <Route path='/findfriends' element={<Search />} />
             <Route path='/updateprofile' element={isLoggedIn ?<UpdateProfile />:<AuthLayout/>} />
             <Route path='/following' element={isLoggedIn ?<Following />:<AuthLayout/>} />

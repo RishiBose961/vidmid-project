@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
-import uploadeds from '../Image/upload.png'
+
 import { TrashIcon } from '@heroicons/react/24/solid'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
+
 
 const CreatePost = () => {
   const history = useNavigate()
@@ -127,6 +131,7 @@ const CreatePost = () => {
 
           </select>
         </div>
+
         <div className='mt-4'>
           <label>Image To Upload</label>
           <input type='file'
@@ -161,27 +166,46 @@ const CreatePost = () => {
                     <p>{`${uploaded} %`}</p>
                   </div>
 
+
                 </>
               )}
+
+
           </div>
         </div>
 
 
 
       </div>
-      <div class="mt-10">
+
+
+      <div class="mt-10 relative">
+
+
         {
           selectedImage ? (
             <div className='flex justify-center'>
-                <img src={URL.createObjectURL(selectedImage)}  className='h-[316px] w-[459px] rounded-lg mb-4 bg-slate-300'/>
+              <img src={URL.createObjectURL(selectedImage)} className='h-[316px] w-[459px] rounded-lg mb-4 bg-slate-300 object-cover absolute' />
             </div>
 
 
           ) :
             <img src="https://images.unsplash.com/photo-1678273114528-bd3ad3267030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0MHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-             alt="loading" className='h-[316px] w-[459px] rounded-lg mb-4' />
+              alt="loading" className='h-[316px] w-[459px] rounded-lg mb-4' />
 
         }
+        {
+          uploaded && (
+
+
+            <div className='flex justify-center mt-20'>
+              <Progress
+                type="circle"
+                percent={uploaded}
+
+              />
+            </div>
+          )}
 
 
       </div>

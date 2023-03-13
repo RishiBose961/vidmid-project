@@ -4,6 +4,8 @@ import uploadeds from '../Image/upload.png'
 import { TrashIcon } from '@heroicons/react/24/solid'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { Progress } from 'react-sweet-progress';
+
 
 const ClipsPost = () => {
     const history = useNavigate()
@@ -183,7 +185,7 @@ const ClipsPost = () => {
                                 </button> : ""
                         }
                     </div>
-                    <div className='w-20 text-center mt-3'>
+                    {/* <div className='w-20 text-center mt-3'>
                         {
                             uploaded && (
                                 <>
@@ -193,17 +195,17 @@ const ClipsPost = () => {
 
                                 </>
                             )}
-                    </div>
+                    </div> */}
                 </div>
 
 
 
             </div>
-            <div class="mt-10">
+            <div class="mt-10 relative">
                 {
                     selectedImage ? (
                         <div className='flex justify-center'>
-                            <video controls className='h-[816px] w-[459px] rounded-lg mb-4 bg-slate-300'>
+                            <video controls className='h-[816px] w-[459px] rounded-lg mb-4 bg-slate-300 object-cover absolute'>
                                 <source src={URL.createObjectURL(selectedImage)} className='' />
                             </video>
                         </div>
@@ -213,6 +215,18 @@ const ClipsPost = () => {
                         <img src={uploadeds} alt="loading" className='h-[816px] w-[459px] rounded-lg mb-4' />
 
                 }
+                {
+          uploaded && (
+
+
+            <div className='flex justify-center mt-20'>
+              <Progress
+                type="circle"
+                percent={uploaded}
+
+              />
+            </div>
+          )}
 
 
             </div>

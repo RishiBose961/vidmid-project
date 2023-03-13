@@ -120,9 +120,7 @@ const Rmain = () => {
                             <div className='mt-3 group relative' key={id}>
                                 <div className='flex justify-between mb-2'>
                                     <div className='inline-flex mt-2'>
-                                        <Avatar className='mt-2 ring-amber-600 bg-amber-500' alt={post.postedBy.username} src={post.postedBy.avatar} />
-                                        {/* <img src="https://images.unsplash.com/photo-1677782465590-415ac196ebc5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                                            alt="placeholder" className='h-14 w-14 rounded-full' /> */}
+                                        <Avatar className='mt-2 ring-amber-600 bg-amber-500' alt='vimit' src={post.postedBy.avatar} />
                                         <div className='mx-2'>
                                             <p className='font-bold text-lg'>{post.postedBy.username}</p>
                                             <p>{post.title}</p>
@@ -180,7 +178,7 @@ const Rmain = () => {
                                 </div>
                                 <div className='group-hover:flex flex-col max-h-[94.5%] hidden  absolute lg:inset-x-[279px] bottom-20  lg:right-[282px] bg-black text-white m-2 p-4 rounded-full'>
                                     <div>
-                                        <p>{post.description.slice(0, 37)}<Link to='#' className='text-red-400'> Read More...</Link> </p>
+                                        <p>{post.description.slice(0, 37)}<Link to={`post/${post._id}`} className='text-red-400'> Read More...</Link> </p>
                                     </div>
                                 </div>
                                 <hr />

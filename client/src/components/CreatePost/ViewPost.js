@@ -33,7 +33,7 @@ const ViewPost = () => {
 
     }, [])
 
-    // console.log(data);
+    console.log(data);
 
 
 
@@ -56,7 +56,7 @@ const ViewPost = () => {
                                                         <p>{item.title}</p>
                                                     </div>
                                                 </div>
-                                                <p className='mt-2'>{format(item.otp_expiry)}</p>
+                                                <p className='mt-2 ring-2 mx-3 h-fit w-32 text-center ring-rose-500 rounded-full text-rose-500'>{format(item.otp_expiry)}</p>
                                             </div>
                                             <div className='mt-2'>
                                                 <img src={item.images}
@@ -70,10 +70,6 @@ const ViewPost = () => {
 
                             })
                         }
-
-
-
-
                     </Swiper>
                 </div> : <div className='flex justify-center'>
                     <InfinitySpin
