@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Comment } from 'react-loader-spinner';
 import { AuthContext } from '../../context/AuthContext';
 import { Avatar } from '@mui/material';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 export default function Comments({post,data,setData}) {
 
@@ -104,14 +105,15 @@ export default function Comments({post,data,setData}) {
                 
                 </DialogTitle>
                 <DialogContent>
+                <Scrollbars style={{ width: 'auto', height: 200 }} >
                 {
                     post.comments.map((item)=>{
                         return(
                             <>
                             <div className='inline-flex mt-2'>
-                                        <Avatar className='mt-2 ring-amber-600 bg-amber-500' alt="loading" src={item.postedBy.avatar} />
+                                        <Avatar className='mt-2 ring-amber-600 bg-amber-500' alt="loading" src={item?.postedBy.avatar} />
                                         <div className='mx-2'>
-                                            <p className='font-bold text-lg'>{item.postedBy.username}</p>
+                                            <p className='font-bold text-lg'>{item?.postedBy.username}</p>
                                             <p>{item.text}</p>
                                         </div>
 
@@ -121,6 +123,7 @@ export default function Comments({post,data,setData}) {
                         )
                     })
                 }
+                </Scrollbars>
 
                 </DialogContent>
             </Dialog>

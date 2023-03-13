@@ -159,7 +159,7 @@ const userController = {
     getallposts: async (req, res) => {
         Post.find()
             .populate("postedBy", "username avatar followers following")
-            .populate("comments.postedBy","id username avatar")
+            .populate("comments.postedBy", "id username avatar")
             .sort({ createdAt: -1 })
             .then(posts => {
                 res.json({ posts })
@@ -175,6 +175,7 @@ const userController = {
     postbyid: async (req, res) => {
         Post.find({ postedBy: req.user.id })
             .populate("postedBy", "_id username")
+            .populate("comments.postedBy", "id username avatar")
             .then(mypost => {
                 res.json({ mypost })
             })
@@ -378,8 +379,8 @@ const userController = {
         }, {
             new: true
         }).sort({ createdAt: -1 })
-            .populate("comments.postedBy", "id uername avatar")
             .populate("postedBy", "username avatar followers following")
+            .populate("comments.postedBy", "id username avatar")
             .exec((err, result) => {
                 if (err) {
                     return res.status(422).json({ error: err })
@@ -392,8 +393,8 @@ const userController = {
 
     getallComments: async (req, res) => {
         Post.find()
-        .populate("postedBy", "username avatar followers following")
-            .populate("comments.postedBy","id username avatar")
+            .populate("postedBy", "username avatar followers following")
+            .populate("comments.postedBy", "id username avatar")
             .sort({ createdAt: -1 })
             .then(userpost => {
                 res.json({ userpost })
@@ -402,6 +403,54 @@ const userController = {
                 console.log(err);
             })
     },
+
+    // get indidual post by n user
+    getIndividualpost: async (req, res) => {
+        try {
+            // console.log(req.params);
+            const { id } = req.params;
+            const postindividual = await Post.findById({ _id: id })
+            .populate("postedBy", "username avatar")
+            // console.log(postindividual);
+            res.status(201).json(postindividual)
+        } catch (error) {
+            res.status(422).json(error)
+        }
+    },
+     RandomPost: async (req, res) => {
+        try {
+            const videos = await Post.aggregate([{ $sample: { size: 40 } }]).limit(5)
+            res.status(200).json(videos);
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    },
+
+    // RandomPost: async (req, res) => {
+    //     try {
+    //         const videos = await Post.find().sort({ likes: -1 , createdAt: -1})
+    //         .populate("postedBy", "username avatar")
+    //         res.status(200).json(videos);
+    //     }
+    //     catch (error) {
+    //         console.log(error.message);
+    //     }
+    // },
+
+
+    // yourFollowingPost: async (req, res) => {
+    //     Post.find({postedBy:{$in:req.user.followers}})
+    //     .populate("postedBy", "username avatar followers following")
+    //     .populate("comments.postedBy", "id username avatar")
+
+    //     .then(userpost => {
+    //         res.json({ userpost })
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // },
 
     google: async (req, res) => {
         try {

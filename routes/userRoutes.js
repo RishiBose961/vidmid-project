@@ -31,6 +31,9 @@ route.post('/api/auth/searchuser',userController.allSearchUser)
 //update user name and avatar
 route.put('/api/auth/user_avatar',auth,userController.updatepic);
 
+//get individual post in different page
+route.get('/api/auth/getsinglepost/:id',userController.getIndividualpost);
+
 //user comment
 route.put('/api/service/getcomments',auth,userController.commentuser);
 route.get('/api/auth/getallcomment',userController.getallComments);
@@ -42,6 +45,10 @@ route.put('/api/auth/unfollow',auth,userController.unfollowuser)
 //followers and followings a user route show
 route.get('/api/auth/friendfollowing/:userId',auth,userController.FriendFollowing)
 route.get('/api/auth/friendfollowers/:userId',auth,userController.FriendFollowers)
+
+
+//getfollowing post
+route.get('/api/auth/randompost',userController.RandomPost)
 
 //login & signgout
 route.post('/api/auth/google_signing',userController.google);
